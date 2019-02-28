@@ -4,6 +4,9 @@ package tests;
 import controller.ReversiController;
 import model.Point;
 import model.ReversiModel;
+import model.UnivalidPointException;
+import model.UnvalidInputException;
+import view.ReversiView;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -363,6 +366,112 @@ public class ReversiControllerTest {
 		point = new Point(6,6);
 		controller.flipTheOpponent(point, "W", "B", model.getTable());
 		assertTrue(controller.tableEquals(model.getTable(), table3));
+	}
+	
+	
+	
+	@Test
+	void testModel() {
+		ReversiModel model = new ReversiModel();
+		ReversiController controller = new ReversiController(model);
+		Point point = new Point(0,0);
+		Point test = new Point(0,0);
+		assertTrue(point.equals(test));
+		test = new Point(0,1);
+		assertFalse(point.equals(test));
+		String str = point.toString();
+		assertEquals(str, "a1");
+		String[][] table = {
+				{"*", "_", "_", "_", "_", "_", "_", "_"},
+				{"_", "_", "_", "_", "_", "_", "_", "_"},
+				{"_", "_", "_", "_", "_", "_", "_", "_"},
+				{"_", "_", "_", "W", "B", "_", "_", "_"},
+				{"_", "_", "_", "B", "W", "_", "_", "_"},
+				{"_", "_", "_", "_", "_", "_", "_", "_"},
+				{"_", "_", "_", "_", "_", "_", "_", "_"},
+				{"_", "_", "_", "_", "_", "_", "_", "_"},
+		};
+		model.placeStar(0,0);
+		String token = model.getTokenAt(0, 0);
+		assertTrue(controller.tableEquals(model.getTable(), table));
+		assertEquals(token, "*");
+		model.cleanStars();
+		table[0][0] = "_";
+		assertTrue(controller.tableEquals(model.getTable(), table));
+		assertFalse(model.isFull());
+		model.placeW(0, 0);
+		model.placeW(0, 1);
+		model.placeW(0, 2);
+		model.placeW(0, 3);
+		model.placeW(0, 4);
+		model.placeW(0, 5);
+		model.placeW(0, 6);
+		model.placeW(0, 7);
 		
+		model.placeW(1, 0);
+		model.placeW(1, 1);
+		model.placeW(1, 2);
+		model.placeW(1, 3);
+		model.placeW(1, 4);
+		model.placeW(1, 5);
+		model.placeW(1, 6);
+		model.placeW(1, 7);
+
+		model.placeW(2, 0);
+		model.placeW(2, 1);
+		model.placeW(2, 2);
+		model.placeW(2, 3);
+		model.placeW(2, 4);
+		model.placeW(2, 5);
+		model.placeW(2, 6);
+		model.placeW(2, 7);
+
+		model.placeW(3, 0);
+		model.placeW(3, 1);
+		model.placeW(3, 2);
+		model.placeW(3, 3);
+		model.placeW(3, 4);
+		model.placeW(3, 5);
+		model.placeW(3, 6);
+		model.placeW(3, 7);
+		
+		model.placeW(4, 0);
+		model.placeW(4, 1);
+		model.placeW(4, 2);
+		model.placeW(4, 3);
+		model.placeW(4, 4);
+		model.placeW(4, 5);
+		model.placeW(4, 6);
+		model.placeW(4, 7);
+		
+		model.placeW(5, 0);
+		model.placeW(5, 1);
+		model.placeW(5, 2);
+		model.placeW(5, 3);
+		model.placeW(5, 4);
+		model.placeW(5, 5);
+		model.placeW(5, 6);
+		model.placeW(5, 7);
+
+		model.placeW(6, 0);
+		model.placeW(6, 1);
+		model.placeW(6, 2);
+		model.placeW(6, 3);
+		model.placeW(6, 4);
+		model.placeW(6, 5);
+		model.placeW(6, 6);
+		model.placeW(6, 7);
+		
+		model.placeW(7, 0);
+		model.placeW(7, 1);
+		model.placeW(7, 2);
+		model.placeW(7, 3);
+		model.placeW(7, 4);
+		model.placeW(7, 5);
+		model.placeW(7, 6);
+		model.placeW(7, 7);
+		assertTrue(model.isFull());
+		model.placeStar(0, 0);
+		assertFalse(model.isFull());
 	}
 }
